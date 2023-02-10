@@ -1,0 +1,1 @@
+docker run --name mongoDB -v database:/etc/mongo -d mongo:latest

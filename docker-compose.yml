@@ -1,0 +1,92 @@
+services:
+    reverseProxy:
+        image: 'jc21/nginx-proxy-manager:latest'
+        container_name: 'reverseProxy'
+        restart: unless-stopped
+        ports:
+            - '80:80'
+            - '81:81'
+            - '443:443'
+        volumes:
+            - 'reverseProxyData:/data'
+            - 'reverseProxyEncrypt:/etc/letsencrypt'
+        networks:
+            - backbone
+            - exter
+        environment:
+            - X-FRAME-OPTIONS="sameorigin"
+        links:
+            - mongo
+            - n8n
+            - elasticSearch
+            - obsidian
+    mongo:
+        image: 'mongo:latest'
+        container_name: mongo
+        ports:
+            - '27017:27017'
+        working_dir: /docker/mongo
+        volumes:
+            - 'mongoDB:/etc/mongo'
+        networks:
+            - backbone
+    n8n:
+        image: 'n8nio/n8n:latest'
+        container_name: n8n
+        ports:
+           - '5678:5678'
+        working_dir: /docker/n8n
+        volumes: 
+            - 'n8ndata:/home/node/.n8n'
+        networks: 
+            - backbone
+    elasticSearch:
+        image: 'elasticsearch:8.6.0'
+        container_name: elasticSearch
+        environment:
+            - discovery.type=single-node
+        working_dir: /docker/elasticSearch
+        volumes:
+            - 'elasticDB:/usr/share/elasticsearch/data'
+        ports:
+            - '9200:9200'
+            - '9300:9300'
+        networks: 
+            - backbone
+    obsidian:
+        build: obsidian-remote/Dockerfile
+        image: 'ghcr.io/sytone/obsidian-remote:latest'
+        container_name: obsidian
+        restart: unless-stopped
+        ports:
+            - 8080 #only exposes port internally to the container
+            - '27123:27123'
+        working_dir: /docker/obsidian
+        volumes:
+            - 'obsidianVault:/vaults'
+            - 'obsidianConfig:/config'
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=America/New_York
+            - DOCKER_MODS=linuxserver/mods:universal-git
+        networks: 
+            - backbone
+networks:
+    backbone:
+        driver: bridge
+        external: false
+        name: backbone 
+    exter:
+        driver: bridge
+        external: false
+        name: exter
+volumes:
+    elasticDB:
+    html:
+    reverseProxyData:
+    reverseProxyEncrypt:
+    mongoDB:
+    n8ndata:
+    obsidianVault:
+    obsidianConfig:
