@@ -1,20 +1,18 @@
 services:
-    reverseProxy:
-        image: 'jc21/nginx-proxy-manager:latest'
-        container_name: 'reverseProxy'
-        restart: unless-stopped
-        ports:
-            - '80:80'
-            - '81:81'
-            - '443:443'
-        volumes:
-            - 'reverseProxyData:/data'
-            - 'reverseProxyEncrypt:/etc/letsencrypt'
+    haproxy:
+        build: /docker/haproxy
+        working_dir: /docker/haproxy
         networks:
             - backbone
             - exter
         environment:
             - X-FRAME-OPTIONS="sameorigin"
+        volumes:
+            - 'haproxyCode:/code'
+            - 'haproxyLogs:/var/log'
+        ports:
+            - '80:80'
+            - '8404:8404'
         links:
             - mongo
             - n8n
@@ -54,7 +52,7 @@ services:
         networks: 
             - backbone
     obsidian:
-        build: obsidian-remote/Dockerfile
+        build: '/obsidian/Dockerfile'
         image: 'ghcr.io/sytone/obsidian-remote:latest'
         container_name: obsidian
         restart: unless-stopped
@@ -90,3 +88,5 @@ volumes:
     n8ndata:
     obsidianVault:
     obsidianConfig:
+    haproxyCode:
+    haproxyLogs:
