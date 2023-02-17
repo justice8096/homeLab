@@ -22,7 +22,7 @@ services:
         image: 'mongo:latest'
         container_name: mongo
         ports:
-            - '27017:27017'
+            - '8000:27017'
         working_dir: /docker/mongo
         volumes:
             - 'mongoDB:/etc/mongo'
@@ -32,7 +32,8 @@ services:
         image: 'n8nio/n8n:latest'
         container_name: n8n
         ports:
-           - '5678:5678'
+           - '8001:5678'
+           - '8002:8080'
         working_dir: /docker/n8n
         volumes: 
             - 'n8ndata:/home/node/.n8n'
@@ -47,8 +48,8 @@ services:
         volumes:
             - 'elasticDB:/usr/share/elasticsearch/data'
         ports:
-            - '9200:9200'
-            - '9300:9300'
+            - '8003:9200'
+            - '8004:9300'
         networks: 
             - backbone
     obsidian:
@@ -57,8 +58,8 @@ services:
         container_name: obsidian
         restart: unless-stopped
         ports:
-            - 8080 #only exposes port internally to the container
-            - '27123:27123'
+            - '8005:8080' 
+            - '8006:27123'
         working_dir: /docker/obsidian
         volumes:
             - 'obsidianVault:/vaults'
