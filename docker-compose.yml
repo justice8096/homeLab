@@ -86,7 +86,8 @@ services:
             - NET_ADMIN
         security_opt:
             - seccomp:unconfined #optional
-        network_mode: host
+        networks:
+            - backbone
         environment:
             - PUID=1000
             - PGID=1000
