@@ -1,15 +1,15 @@
 services:
     haproxy:
-        build: /docker/haproxy
-        working_dir: /docker/haproxy
+        build: /mnt/sdc4/docker/haproxy
+        working_dir: /mnt/sdc4/docker/haproxy
         networks:
             - backbone
             - exter
         environment:
             - X-FRAME-OPTIONS="sameorigin"
         volumes:
-            - 'haproxyCode:/code'
-            - 'haproxyLogs:/var/log'
+            - '/mnt/sdc4/docker/haproxy/haproxyCode:/code'
+            - '/mnt/sdc4/docker/haproxy/haproxyLogs:/var/log'
         ports:
             - '80:80'
             - '8404:8404'
@@ -23,14 +23,16 @@ services:
             - n8n
             - elasticSearch
             - obsidian
+            - calibre
+            - webdav
     mongo:
         image: 'mongo:latest'
         container_name: mongo
-        working_dir: /docker/mongo
+        working_dir: /mnt/sdc4/docker/mongo
         expose:
             - '27017'
         volumes:
-            - 'mongoDB:/etc/mongo'
+            - '/mnt/sdc4/docker/mongo/mongoDB:/etc/mongo'
         networks:
             - backbone
     n8n:
@@ -40,9 +42,9 @@ services:
             - '5678'
         ports:
            - '8002:8080'
-        working_dir: /docker/n8n
+        working_dir: /mnt/sdc4/docker/n8n
         volumes: 
-            - 'n8ndata:/home/node/.n8n'
+            - '/mnt/sdc4/docker/n8n/n8nData:/home/node/.n8n'
         networks: 
             - backbone
     elasticSearch:
@@ -50,9 +52,9 @@ services:
         container_name: elasticSearch
         environment:
             - discovery.type=single-node
-        working_dir: /docker/elasticSearch
+        working_dir: /mnt/sdc4/docker/elasticSearch
         volumes:
-            - 'elasticDB:/usr/share/elasticsearch/data'
+            - '/mnt/sdc4/docker/elasticSearch/elasticSearchDB:/usr/share/elasticsearch/data'
         expose:
             - '9200'
         ports:
@@ -60,18 +62,16 @@ services:
         networks: 
             - backbone
     obsidian:
-        build: '/obsidian/Dockerfile'
-        image: 'ghcr.io/sytone/obsidian-remote:latest'
+        image: ghcr.io/sytone/obsidian-remote:latest
         container_name: obsidian
         restart: unless-stopped
         expose:
             - '8080'
         ports:
             - '8006:27123'
-        working_dir: /docker/obsidian
         volumes:
-            - 'obsidianVault:/vaults'
-            - 'obsidianConfig:/config'
+            - '/mnt/sdc4/docker/obsidian/obsidianVault:/vaults'
+            - '/mnt/sdc4/docker/obsidian/obsidianConfig:/config'
         environment:
             - PUID=1000
             - PGID=1000
@@ -79,24 +79,39 @@ services:
             - DOCKER_MODS=linuxserver/mods:universal-git
         networks: 
             - backbone
-    wireshark:
-        image: lscr.io/linuxserver/wireshark:latest
-        container_name: wireshark
-        cap_add:
-            - NET_ADMIN
+    calibre:
+        image: lscr.io/linuxserver/calibre:latest
+        container_name: calibre
         security_opt:
-            - seccomp:unconfined #optional
-        networks:
-            - backbone
+         - seccomp:unconfined #optional
         environment:
             - PUID=1000
             - PGID=1000
             - TZ=Etc/UTC
+            - PASSWORD= #optional
+            - CLI_ARGS= #optional
         volumes:
-            - /path/to/config:/config
+            - /mnt/sdc4/docker/calibre/calibreConfig:/config
+            - /mnt/sdc4/CalibreLibrary2:/mnt
+        expose:
+            - 8080
         ports:
-            - 3000:3000 #optional
-        restart: unless-stopped
+            - 8081:8081
+        networks:
+            - backbone
+    webdav:
+        image: bytemark/webdav
+        restart: always
+        expose:
+            - 80
+        environment:
+            AUTH_TYPE: Digest
+            USERNAME: storeage
+            PASSWORD: power
+        volumes:
+            - /mnt/sdc4/docker/webdav/storage:/var/lib/dav
+        networks:
+            - backbone
 networks:
     backbone:
         driver: bridge
@@ -107,13 +122,4 @@ networks:
         external: false
         name: exter
 volumes:
-    elasticDB:
-    html:
-    reverseProxyData:
-    reverseProxyEncrypt:
-    mongoDB:
-    n8ndata:
-    obsidianVault:
-    obsidianConfig:
-    haproxyCode:
-    haproxyLogs:
+    tcpdump:

@@ -51,3 +51,4 @@ EXPOSE 8080
 EXPOSE 27123
 EXPOSE 27124
 VOLUME ["/config","/vaults"]
+

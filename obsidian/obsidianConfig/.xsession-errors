@@ -1,0 +1,778 @@
+Xsession: X session started for abc at Sun Feb 26 20:44:06 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-dBY1X6dFkn,guid=a45ed0fbe84dd3854191efca63fbc496
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-02-26 20:44:07 Loading main app package /squashfs-root/resources/obsidian.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1209:0226/204407.121452:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1209:0226/204407.121535:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1236:0226/204407.141865:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-02-26 20:44:07 Checking for update using Github
+2023-02-26 20:44:08 Success.
+2023-02-26 20:44:08 Latest version is 1.1.15
+2023-02-26 20:44:08 Downloading update from https://github.com/obsidianmd/obsidian-releases/releases/download/v1.1.15/obsidian-1.1.15.asar.gz
+2023-02-26 20:44:08 Verifying hash & signature. Size= 5765357
+2023-02-26 20:44:08 Saving file
+2023-02-26 20:44:08 Update complete.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 20:45:16.617: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Thu Mar  2 01:21:47 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-B8jDtwSrFJ,guid=15bb0e4b542172c29f7a5f9b63fffa2b
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-02 01:21:47 Loading updated app package /config/.config/obsidian/obsidian-1.1.15.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1204:0302/012147.710499:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1204:0302/012147.710592:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1230:0302/012147.742943:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-02 01:21:47 Checking for update using Github
+2023-03-02 01:21:47 Success.
+2023-03-02 01:21:47 Latest version is 1.1.15
+2023-03-02 01:21:47 App is up to date.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 01:42:26.791: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Thu Mar  2 01:43:17 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-rCVbrElllW,guid=8051b528e558fc3ce752ddfc63ffff35
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-02 01:43:17 Loading updated app package /config/.config/obsidian/obsidian-1.1.15.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1204:0302/014317.964206:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1204:0302/014317.964263:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1230:0302/014317.987499:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-02 01:43:18 Checking for update using Github
+2023-03-02 01:43:18 Success.
+2023-03-02 01:43:18 Latest version is 1.1.15
+2023-03-02 01:43:18 App is up to date.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 02:09:46.261: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Thu Mar  2 02:10:26 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-nHPu7EJq8Z,guid=8c22c9ce58bbfb7fe5ddb95764000592
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-02 02:10:26 Loading updated app package /config/.config/obsidian/obsidian-1.1.15.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1204:0302/021026.835034:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1204:0302/021026.835127:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1230:0302/021026.866285:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-02 02:10:26 Checking for update using Github
+2023-03-02 02:10:26 Success.
+2023-03-02 02:10:26 Latest version is 1.1.15
+2023-03-02 02:10:26 App is up to date.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 02:11:10.461: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Thu Mar  2 02:12:03 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-n64SQEy6Fx,guid=8af3612d74124ee8469325bc640005f4
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-02 02:12:04 Loading updated app package /config/.config/obsidian/obsidian-1.1.15.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[308:0302/021204.852029:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[308:0302/021204.852076:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[332:0302/021205.404317:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-02 02:12:05 Checking for update using Github
+2023-03-02 02:12:05 Success.
+2023-03-02 02:12:05 Latest version is 1.1.15
+2023-03-02 02:12:05 App is up to date.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 02:29:36.410: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Thu Mar  2 02:30:07 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-p5mHz9pGZS,guid=4673c8e53705f1cfb0da5f3364000a2f
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-02 02:30:08 Loading updated app package /config/.config/obsidian/obsidian-1.1.15.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1203:0302/023008.196599:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1203:0302/023008.196671:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1231:0302/023008.233037:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-02 02:30:08 Checking for update using Github
+2023-03-02 02:30:08 Success.
+2023-03-02 02:30:08 Latest version is 1.1.15
+2023-03-02 02:30:08 App is up to date.
+XIO:  fatal IO error 4 (Interrupted system call) on X server ":10.0"
+      after 7671 requests (7671 known processed) with 0 events remaining.
+Gdk-Message: 02:34:22.367: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Thu Mar  2 02:43:14 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-EyerzXRcUz,guid=499a5864ca95a2dbdc918dcf64000d42
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-02 02:43:14 Loading updated app package /config/.config/obsidian/obsidian-1.1.15.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[314:0302/024314.438571:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[314:0302/024314.438649:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[341:0302/024314.485686:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-02 02:43:14 Checking for update using Github
+2023-03-02 02:43:14 Success.
+2023-03-02 02:43:14 Latest version is 1.1.15
+2023-03-02 02:43:14 App is up to date.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 02:44:31.788: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Fri Mar  3 00:00:39 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-LSeCsMRCXz,guid=12ae016a1dd9f92b3e0698a3640138a7
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-03 00:00:40 Loading updated app package /config/.config/obsidian/obsidian-1.1.15.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1204:0303/000040.201811:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1204:0303/000040.201935:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1230:0303/000040.236699:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-03 00:00:40 Checking for update using Github
+2023-03-03 00:00:40 Success.
+2023-03-03 00:00:40 Latest version is 1.1.16
+2023-03-03 00:00:40 Downloading update from https://github.com/obsidianmd/obsidian-releases/releases/download/v1.1.16/obsidian-1.1.16.asar.gz
+2023-03-03 00:00:40 Verifying hash & signature. Size= 5766915
+2023-03-03 00:00:40 Saving file
+2023-03-03 00:00:40 Update complete.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 00:02:14.508: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Fri Mar  3 00:02:59 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-UmVOxI8qN0,guid=95fd79323a030fe837f6451364013933
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-03 00:02:59 Loading updated app package /config/.config/obsidian/obsidian-1.1.16.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1203:0303/000259.840709:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1203:0303/000259.840801:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1231:0303/000259.871919:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-03 00:02:59 Checking for update using Github
+2023-03-03 00:02:59 Success.
+2023-03-03 00:02:59 Latest version is 1.1.16
+2023-03-03 00:02:59 App is up to date.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 00:18:34.311: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Fri Mar  3 00:19:08 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-nd3Dhs3MJL,guid=1df8a1a3e12060e291a2ba0564013cfc
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-03 00:19:08 Loading updated app package /config/.config/obsidian/obsidian-1.1.16.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1208:0303/001908.405750:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1208:0303/001908.405807:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1234:0303/001908.446566:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-03 00:19:08 Checking for update using Github
+2023-03-03 00:19:08 Success.
+2023-03-03 00:19:08 Latest version is 1.1.16
+2023-03-03 00:19:08 App is up to date.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 00:25:23.577: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Fri Mar  3 00:26:18 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-BemkoEHlwO,guid=8d01d9d91d4112c6b7cc88df64013eaa
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-03 00:26:18 Loading updated app package /config/.config/obsidian/obsidian-1.1.16.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1210:0303/002618.321652:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1210:0303/002618.321709:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1237:0303/002618.342645:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-03 00:26:18 Checking for update using Github
+2023-03-03 00:26:18 Success.
+2023-03-03 00:26:18 Latest version is 1.1.16
+2023-03-03 00:26:18 App is up to date.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 00:32:30.170: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Fri Mar  3 00:33:13 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-P2Hqu6AuGJ,guid=189a5c44ba1e1b23aa992be664014049
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-03 00:33:13 Loading updated app package /config/.config/obsidian/obsidian-1.1.16.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1204:0303/003313.733906:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1204:0303/003313.734000:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1230:0303/003313.766647:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-03 00:33:13 Checking for update using Github
+2023-03-03 00:33:13 Success.
+2023-03-03 00:33:13 Latest version is 1.1.16
+2023-03-03 00:33:13 App is up to date.
+2023-03-03 01:33:13 Checking for update using Github
+2023-03-03 01:33:13 Success.
+2023-03-03 01:33:13 Latest version is 1.1.16
+2023-03-03 01:33:13 App is up to date.
+2023-03-03 02:33:13 Checking for update using Github
+2023-03-03 02:33:13 Success.
+2023-03-03 02:33:13 Latest version is 1.1.16
+2023-03-03 02:33:13 App is up to date.
+2023-03-03 03:33:13 Checking for update using Github
+2023-03-03 03:33:13 Success.
+2023-03-03 03:33:13 Latest version is 1.1.16
+2023-03-03 03:33:13 App is up to date.
+2023-03-03 04:33:13 Checking for update using Github
+2023-03-03 04:33:14 Success.
+2023-03-03 04:33:14 Latest version is 1.1.16
+2023-03-03 04:33:14 App is up to date.
+2023-03-03 05:33:14 Checking for update using Github
+2023-03-03 05:33:14 Success.
+2023-03-03 05:33:14 Latest version is 1.1.16
+2023-03-03 05:33:14 App is up to date.
+2023-03-03 06:33:14 Checking for update using Github
+2023-03-03 06:33:14 Success.
+2023-03-03 06:33:14 Latest version is 1.1.16
+2023-03-03 06:33:14 App is up to date.
+2023-03-03 07:33:14 Checking for update using Github
+2023-03-03 07:33:14 Success.
+2023-03-03 07:33:14 Latest version is 1.1.16
+2023-03-03 07:33:14 App is up to date.
+2023-03-03 08:33:14 Checking for update using Github
+2023-03-03 08:33:14 Success.
+2023-03-03 08:33:14 Latest version is 1.1.16
+2023-03-03 08:33:14 App is up to date.
+2023-03-03 09:33:14 Checking for update using Github
+2023-03-03 09:33:14 Success.
+2023-03-03 09:33:14 Latest version is 1.1.16
+2023-03-03 09:33:14 App is up to date.
+2023-03-03 10:33:14 Checking for update using Github
+2023-03-03 10:33:14 Success.
+2023-03-03 10:33:14 Latest version is 1.1.16
+2023-03-03 10:33:14 App is up to date.
+2023-03-03 11:33:14 Checking for update using Github
+2023-03-03 11:33:14 Success.
+2023-03-03 11:33:14 Latest version is 1.1.16
+2023-03-03 11:33:14 App is up to date.
+2023-03-03 12:33:14 Checking for update using Github
+2023-03-03 12:33:14 Success.
+2023-03-03 12:33:14 Latest version is 1.1.16
+2023-03-03 12:33:14 App is up to date.
+2023-03-03 13:33:14 Checking for update using Github
+2023-03-03 13:33:14 Success.
+2023-03-03 13:33:14 Latest version is 1.1.16
+2023-03-03 13:33:14 App is up to date.
+2023-03-03 14:33:14 Checking for update using Github
+2023-03-03 14:33:14 Success.
+2023-03-03 14:33:14 Latest version is 1.1.16
+2023-03-03 14:33:14 App is up to date.
+2023-03-03 15:33:14 Checking for update using Github
+2023-03-03 15:33:14 Success.
+2023-03-03 15:33:14 Latest version is 1.1.16
+2023-03-03 15:33:14 App is up to date.
+2023-03-03 16:33:14 Checking for update using Github
+2023-03-03 16:33:14 Success.
+2023-03-03 16:33:14 Latest version is 1.1.16
+2023-03-03 16:33:14 App is up to date.
+2023-03-03 17:33:14 Checking for update using Github
+2023-03-03 17:33:14 Success.
+2023-03-03 17:33:14 Latest version is 1.1.16
+2023-03-03 17:33:14 App is up to date.
+2023-03-03 18:33:14 Checking for update using Github
+2023-03-03 18:33:14 Success.
+2023-03-03 18:33:14 Latest version is 1.1.16
+2023-03-03 18:33:14 App is up to date.
+2023-03-03 19:33:14 Checking for update using Github
+2023-03-03 19:33:14 Success.
+2023-03-03 19:33:14 Latest version is 1.1.16
+2023-03-03 19:33:14 App is up to date.
+2023-03-03 20:33:14 Checking for update using Github
+2023-03-03 20:33:15 Success.
+2023-03-03 20:33:15 Latest version is 1.1.16
+2023-03-03 20:33:15 App is up to date.
+2023-03-03 21:33:15 Checking for update using Github
+2023-03-03 21:33:15 Success.
+2023-03-03 21:33:15 Latest version is 1.1.16
+2023-03-03 21:33:15 App is up to date.
+2023-03-03 22:33:15 Checking for update using Github
+2023-03-03 22:33:15 Success.
+2023-03-03 22:33:15 Latest version is 1.1.16
+2023-03-03 22:33:15 App is up to date.
+XIO:  fatal IO error 4 (Interrupted system call) on X server ":10.0"
+      after 4727 requests (4727 known processed) with 0 events remaining.
+Gdk-Message: 23:16:41.954: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Fri Mar  3 23:17:31 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-vuZMQRZK0i,guid=64e66e1ea691d6f051284cc66402800c
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-03 23:17:32 Loading updated app package /config/.config/obsidian/obsidian-1.1.16.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[308:0303/231732.933214:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[308:0303/231732.933267:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[332:0303/231732.983058:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-03 23:17:33 Checking for update using Github
+2023-03-03 23:17:33 Success.
+2023-03-03 23:17:33 Latest version is 1.1.16
+2023-03-03 23:17:33 App is up to date.
+X connection to :10.0 broken (explicit kill or server shutdown).
+Gdk-Message: 23:38:46.182: obsidian: Fatal IO error 0 (Success) on X server :10.0.
+
+Xsession: X session started for abc at Fri Mar  3 23:45:06 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-NvwBLqUc6B,guid=0aff2218abc320ba0a81223064028682
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:10.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Obt-Message: Xinerama extension is not present on the server
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-03 23:45:06 Loading updated app package /config/.config/obsidian/obsidian-1.1.16.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[1204:0303/234506.647205:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1204:0303/234506.647258:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1230:0303/234506.680514:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-03 23:45:06 Checking for update using Github
+2023-03-03 23:45:06 Success.
+2023-03-03 23:45:06 Latest version is 1.1.16
+2023-03-03 23:45:06 App is up to date.
+2023-03-04 00:45:06 Checking for update using Github
+2023-03-04 00:45:06 Success.
+2023-03-04 00:45:06 Latest version is 1.1.16
+2023-03-04 00:45:06 App is up to date.
+2023-03-04 01:45:06 Checking for update using Github
+2023-03-04 01:45:06 Success.
+2023-03-04 01:45:06 Latest version is 1.1.16
+2023-03-04 01:45:06 App is up to date.
+2023-03-04 02:45:06 Checking for update using Github
+2023-03-04 02:45:06 Success.
+2023-03-04 02:45:06 Latest version is 1.1.16
+2023-03-04 02:45:06 App is up to date.
+2023-03-04 03:45:06 Checking for update using Github
+2023-03-04 03:45:06 Success.
+2023-03-04 03:45:06 Latest version is 1.1.16
+2023-03-04 03:45:06 App is up to date.
+2023-03-04 04:45:06 Checking for update using Github
+2023-03-04 04:45:07 Success.
+2023-03-04 04:45:07 Latest version is 1.1.16
+2023-03-04 04:45:07 App is up to date.
+2023-03-04 05:45:07 Checking for update using Github
+2023-03-04 05:45:07 Success.
+2023-03-04 05:45:07 Latest version is 1.1.16
+2023-03-04 05:45:07 App is up to date.
+2023-03-04 06:45:07 Checking for update using Github
+2023-03-04 06:45:07 Success.
+2023-03-04 06:45:07 Latest version is 1.1.16
+2023-03-04 06:45:07 App is up to date.
+2023-03-04 07:45:07 Checking for update using Github
+2023-03-04 07:45:07 Success.
+2023-03-04 07:45:07 Latest version is 1.1.16
+2023-03-04 07:45:07 App is up to date.
+2023-03-04 08:45:07 Checking for update using Github
+2023-03-04 08:45:07 Success.
+2023-03-04 08:45:07 Latest version is 1.1.16
+2023-03-04 08:45:07 App is up to date.
+2023-03-04 09:45:07 Checking for update using Github
+2023-03-04 09:45:07 Success.
+2023-03-04 09:45:07 Latest version is 1.1.16
+2023-03-04 09:45:07 App is up to date.
+2023-03-04 10:45:07 Checking for update using Github
+2023-03-04 10:45:07 Success.
+2023-03-04 10:45:07 Latest version is 1.1.16
+2023-03-04 10:45:07 App is up to date.
+2023-03-04 11:45:07 Checking for update using Github
+2023-03-04 11:45:07 Success.
+2023-03-04 11:45:07 Latest version is 1.1.16
+2023-03-04 11:45:07 App is up to date.
+2023-03-04 12:45:07 Checking for update using Github
+2023-03-04 12:45:07 Success.
+2023-03-04 12:45:07 Latest version is 1.1.16
+2023-03-04 12:45:07 App is up to date.
+2023-03-04 13:45:07 Checking for update using Github
+2023-03-04 13:45:07 Success.
+2023-03-04 13:45:07 Latest version is 1.1.16
+2023-03-04 13:45:07 App is up to date.
+2023-03-04 14:45:07 Checking for update using Github
+2023-03-04 14:45:07 Success.
+2023-03-04 14:45:07 Latest version is 1.1.16
+2023-03-04 14:45:07 App is up to date.
+2023-03-04 15:45:07 Checking for update using Github
+2023-03-04 15:45:07 Success.
+2023-03-04 15:45:07 Latest version is 1.1.16
+2023-03-04 15:45:07 App is up to date.
+2023-03-04 16:45:07 Checking for update using Github
+2023-03-04 16:45:08 Success.
+2023-03-04 16:45:08 Latest version is 1.1.16
+2023-03-04 16:45:08 App is up to date.
+2023-03-04 17:45:07 Checking for update using Github
+2023-03-04 17:45:08 Success.
+2023-03-04 17:45:08 Latest version is 1.1.16
+2023-03-04 17:45:08 App is up to date.
+ALSA lib confmisc.c:767:(parse_card) cannot find card '0'
+ALSA lib conf.c:4732:(_snd_config_evaluate) function snd_func_card_driver returned error: No such file or directory
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:4732:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1246:(snd_func_refer) error evaluating name
+ALSA lib conf.c:4732:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5220:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2642:(snd_pcm_open_noupdate) Unknown PCM default
+[3678:0304/183159.217558:ERROR:alsa_util.cc(204)] PcmOpen: default,No such file or directory
+ALSA lib confmisc.c:767:(parse_card) cannot find card '0'
+ALSA lib conf.c:4732:(_snd_config_evaluate) function snd_func_card_driver returned error: No such file or directory
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:4732:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1246:(snd_func_refer) error evaluating name
+ALSA lib conf.c:4732:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5220:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2642:(snd_pcm_open_noupdate) Unknown PCM default
+[3678:0304/183159.218040:ERROR:alsa_util.cc(204)] PcmOpen: plug:default,No such file or directory
+Warning: disabling flag --expose_wasm due to conflicting flags
+Warning: disabling flag --expose_wasm due to conflicting flags
+2023-03-04 18:45:07 Checking for update using Github
+2023-03-04 18:45:08 Success.
+2023-03-04 18:45:08 Latest version is 1.1.16
+2023-03-04 18:45:08 App is up to date.
+2023-03-04 19:45:07 Checking for update using Github
+2023-03-04 19:45:08 Success.
+2023-03-04 19:45:08 Latest version is 1.1.16
+2023-03-04 19:45:08 App is up to date.
+2023-03-04 20:45:08 Checking for update using Github
+2023-03-04 20:45:08 Success.
+2023-03-04 20:45:08 Latest version is 1.1.16
+2023-03-04 20:45:08 App is up to date.
+2023-03-04 21:45:08 Checking for update using Github
+2023-03-04 21:45:08 Success.
+2023-03-04 21:45:08 Latest version is 1.1.16
+2023-03-04 21:45:08 App is up to date.
+2023-03-04 22:45:08 Checking for update using Github
+2023-03-04 22:45:08 Success.
+2023-03-04 22:45:08 Latest version is 1.1.16
+2023-03-04 22:45:08 App is up to date.
+Xsession: X session started for abc at Sun Mar  5 00:58:21 UTC 2023
+localuser:abc being added to access control list
+dbus-update-activation-environment: systemd --user not found, ignoring --systemd argument
+dbus-update-activation-environment: setting USER=abc
+dbus-update-activation-environment: setting HOME=/config
+dbus-update-activation-environment: setting XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_11
+dbus-update-activation-environment: setting XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_11
+dbus-update-activation-environment: setting DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-01Iqb8DPUv,guid=eed4a81cdd8c4e1d7ce49eeb6403e92d
+dbus-update-activation-environment: setting PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+dbus-update-activation-environment: setting LOGNAME=abc
+dbus-update-activation-environment: setting PATH=/sbin:/bin:/usr/bin:/usr/local/bin
+dbus-update-activation-environment: setting XRDP_SOCKET_PATH=/run/xrdp/sockdir
+dbus-update-activation-environment: setting DISPLAY=:11.0
+dbus-update-activation-environment: setting UID=1000
+dbus-update-activation-environment: setting SHELL=/bin/bash
+dbus-update-activation-environment: setting XRDP_SESSION=1
+dbus-update-activation-environment: setting GPG_AGENT_INFO=/config/.gnupg/S.gpg-agent:0:1
+dbus-update-activation-environment: setting PWD=/config
+Openbox-Message: Unable to find a valid menu file "/var/lib/openbox/debian-menu.xml"
+2023-03-05 00:58:22 Loading updated app package /config/.config/obsidian/obsidian-1.1.16.asar
+LaunchProcess: failed to execvp:
+xdg-settings
+[314:0305/005822.459949:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[314:0305/005822.460000:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[338:0305/005822.499178:ERROR:gpu_init.cc(446)] Passthrough is not supported, GL is disabled, ANGLE is 
+2023-03-05 00:58:22 Checking for update using Github
+2023-03-05 00:58:22 Success.
+2023-03-05 00:58:22 Latest version is 1.1.16
+2023-03-05 00:58:22 App is up to date.
+2023-03-05 01:58:22 Checking for update using Github
+2023-03-05 01:58:22 Success.
+2023-03-05 01:58:22 Latest version is 1.1.16
+2023-03-05 01:58:22 App is up to date.
+2023-03-05 02:58:22 Checking for update using Github
+2023-03-05 02:58:22 Success.
+2023-03-05 02:58:22 Latest version is 1.1.16
+2023-03-05 02:58:22 App is up to date.
+2023-03-05 03:58:22 Checking for update using Github
+2023-03-05 03:58:22 Success.
+2023-03-05 03:58:22 Latest version is 1.1.16
+2023-03-05 03:58:22 App is up to date.
+2023-03-05 04:58:22 Checking for update using Github
+2023-03-05 04:58:23 Success.
+2023-03-05 04:58:23 Latest version is 1.1.16
+2023-03-05 04:58:23 App is up to date.
+2023-03-05 05:58:22 Checking for update using Github
+2023-03-05 05:58:22 Success.
+2023-03-05 05:58:22 Latest version is 1.1.16
+2023-03-05 05:58:22 App is up to date.
+2023-03-05 06:58:22 Checking for update using Github
+2023-03-05 06:58:22 Success.
+2023-03-05 06:58:22 Latest version is 1.1.16
+2023-03-05 06:58:22 App is up to date.
+2023-03-05 07:58:22 Checking for update using Github
+2023-03-05 07:58:22 Success.
+2023-03-05 07:58:22 Latest version is 1.1.16
+2023-03-05 07:58:22 App is up to date.
+2023-03-05 08:58:22 Checking for update using Github
+2023-03-05 08:58:23 Success.
+2023-03-05 08:58:23 Latest version is 1.1.16
+2023-03-05 08:58:23 App is up to date.
+2023-03-05 09:58:23 Checking for update using Github
+2023-03-05 09:58:23 Success.
+2023-03-05 09:58:23 Latest version is 1.1.16
+2023-03-05 09:58:23 App is up to date.
+2023-03-05 10:58:23 Checking for update using Github
+2023-03-05 10:58:23 Success.
+2023-03-05 10:58:23 Latest version is 1.1.16
+2023-03-05 10:58:23 App is up to date.
+2023-03-05 11:58:23 Checking for update using Github
+2023-03-05 11:58:23 Success.
+2023-03-05 11:58:23 Latest version is 1.1.16
+2023-03-05 11:58:23 App is up to date.
+2023-03-05 12:58:23 Checking for update using Github
+2023-03-05 12:58:23 Success.
+2023-03-05 12:58:23 Latest version is 1.1.16
+2023-03-05 12:58:23 App is up to date.
+2023-03-05 13:58:23 Checking for update using Github
+2023-03-05 13:58:23 Success.
+2023-03-05 13:58:23 Latest version is 1.1.16
+2023-03-05 13:58:23 App is up to date.
+2023-03-05 14:58:23 Checking for update using Github
+2023-03-05 14:58:23 Success.
+2023-03-05 14:58:23 Latest version is 1.1.16
+2023-03-05 14:58:23 App is up to date.
+2023-03-05 15:58:23 Checking for update using Github
+2023-03-05 15:58:23 Success.
+2023-03-05 15:58:23 Latest version is 1.1.16
+2023-03-05 15:58:23 App is up to date.
+2023-03-05 16:58:23 Checking for update using Github
+2023-03-05 16:58:23 Success.
+2023-03-05 16:58:23 Latest version is 1.1.16
+2023-03-05 16:58:23 App is up to date.
+2023-03-05 17:58:23 Checking for update using Github
+2023-03-05 17:58:23 Success.
+2023-03-05 17:58:23 Latest version is 1.1.16
+2023-03-05 17:58:23 App is up to date.
+2023-03-05 18:58:23 Checking for update using Github
+2023-03-05 18:58:23 Success.
+2023-03-05 18:58:23 Latest version is 1.1.16
+2023-03-05 18:58:23 App is up to date.
+2023-03-05 19:58:23 Checking for update using Github
+2023-03-05 19:58:23 Success.
+2023-03-05 19:58:23 Latest version is 1.1.16
+2023-03-05 19:58:23 App is up to date.
+2023-03-05 20:58:23 Checking for update using Github
+2023-03-05 20:58:24 Success.
+2023-03-05 20:58:24 Latest version is 1.1.16
+2023-03-05 20:58:24 App is up to date.
+2023-03-05 21:58:23 Checking for update using Github
+2023-03-05 21:58:24 Success.
+2023-03-05 21:58:24 Latest version is 1.1.16
+2023-03-05 21:58:24 App is up to date.
