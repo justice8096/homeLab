@@ -1,15 +1,15 @@
 services:
     haproxy:
-        build: /mnt/sdc4/docker/haproxy
-        working_dir: /mnt/sdc4/docker/haproxy
+        build: ${SERVICE_ROOT:-/mnt/sdc4}/docker/haproxy
+        working_dir: ${SERVICE_ROOT:-/mnt/sdc4}/docker/haproxy
         networks:
             - backbone
             - exter
         environment:
             - X-FRAME-OPTIONS="sameorigin"
         volumes:
-            - '/mnt/sdc4/docker/haproxy/haproxyCode:/code'
-            - '/mnt/sdc4/docker/haproxy/haproxyLogs:/var/log'
+            - '${SERVICE_ROOT:-/mnt/sdc4}/docker/haproxy/haproxyCode:/code'
+            - '${SERVICE_ROOT:-/mnt/sdc4}/docker/haproxy/haproxyLogs:/var/log'
         ports:
             - '80:80'
             - '8404:8404'
@@ -28,11 +28,11 @@ services:
     mongo:
         image: 'mongo:latest'
         container_name: mongo
-        working_dir: /mnt/sdc4/docker/mongo
+        working_dir: ${SERVICE_ROOT:-/mnt/sdc4}/docker/mongo
         expose:
             - '27017'
         volumes:
-            - '/mnt/sdc4/docker/mongo/mongoDB:/etc/mongo'
+            - '${SERVICE_ROOT:-/mnt/sdc4}/docker/mongo/mongoDB:/etc/mongo'
         networks:
             - backbone
     n8n:
@@ -42,9 +42,9 @@ services:
             - '5678'
         ports:
            - '8002:8080'
-        working_dir: /mnt/sdc4/docker/n8n
+        working_dir: ${SERVICE_R00T:-/mnt/sdc4}/docker/n8n
         volumes: 
-            - '/mnt/sdc4/docker/n8n/n8nData:/home/node/.n8n'
+           - '${SERVICE_ROOT:-/mnt/sdc4}/docker/n8n/n8nData:/home/node/.n8n'
         networks: 
             - backbone
     elasticSearch:
@@ -52,9 +52,9 @@ services:
         container_name: elasticSearch
         environment:
             - discovery.type=single-node
-        working_dir: /mnt/sdc4/docker/elasticSearch
+        working_dir: ${SERVICE_ROOT:-/mnt/sdc4}/docker/elasticSearch
         volumes:
-            - '/mnt/sdc4/docker/elasticSearch/elasticSearchDB:/usr/share/elasticsearch/data'
+            - '${SERVICE_ROOT:-/mnt/sdc4}/docker/elasticSearch/elasticSearchDB:/usr/share/elasticsearch/data'
         expose:
             - '9200'
         ports:
@@ -70,8 +70,8 @@ services:
         ports:
             - '8006:27123'
         volumes:
-            - '/mnt/sdc4/docker/obsidian/obsidianVault:/vaults'
-            - '/mnt/sdc4/docker/obsidian/obsidianConfig:/config'
+            - '${SERVICE_ROOT:-/mnt/sdc4}/docker/obsidian/obsidianVault:/vaults'
+            - '${SERVICE_ROOT:-/mnt/sdc4}/docker/obsidian/obsidianConfig:/config'
         environment:
             - PUID=1000
             - PGID=1000
@@ -91,8 +91,8 @@ services:
             - PASSWORD= #optional
             - CLI_ARGS= #optional
         volumes:
-            - /mnt/sdc4/docker/calibre/calibreConfig:/config
-            - /mnt/sdc4/CalibreLibrary2:/mnt
+            - ${SERVICE_ROOT:-/mnt/sdc4}/docker/calibre/calibreConfig:/config
+            - ${CALIBRE_LIBRARY:-/mnt/sdc4/CalibreLibrary2}:/mnt
         expose:
             - 8080
         ports:
@@ -109,7 +109,7 @@ services:
             USERNAME: storeage
             PASSWORD: power
         volumes:
-            - /mnt/sdc4/docker/webdav/storage:/var/lib/dav
+            - ${SERVICE_ROOT:-/mnt/sdc4}/docker/webdav/storage:/var/lib/dav
         networks:
             - backbone
 networks:
