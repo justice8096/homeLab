@@ -42,6 +42,25 @@ DRIVE_WARN=45
 DRIVE_CRIT=55
 
 # ---------------------------------------------------------------------------
+# Home Assistant (MQTT discovery)
+# ---------------------------------------------------------------------------
+# Publish temps + container health to Home Assistant via MQTT auto-discovery.
+# Requires mosquitto-clients on Rogue (apt install mosquitto-clients) and an
+# MQTT broker HA is connected to (e.g. the Mosquitto add-on).
+# Enable here, or per-run with the --mqtt flag.
+MQTT_ENABLED=0
+MQTT_HOST="homeassistant.local"   # broker address
+MQTT_PORT=1883
+MQTT_USER=""                       # broker username (blank = anonymous)
+MQTT_PASS=""                       # broker password
+MQTT_BASE="homelab"                # state-topic root
+MQTT_DISCOVERY="homeassistant"     # HA discovery prefix (default: homeassistant)
+MQTT_NODE="homelab"                # entity/unique_id namespace
+# Seconds without an update before HA marks an entity unavailable.
+# Set a bit above your cron interval; 0 disables the expiry.
+MQTT_EXPIRE=1800
+
+# ---------------------------------------------------------------------------
 # Behaviour
 # ---------------------------------------------------------------------------
 # Set to 1 to disable ANSI colour (useful for cron / log capture).

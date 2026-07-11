@@ -30,9 +30,30 @@ CPU_CRIT=85
 DRIVE_WARN=45
 DRIVE_CRIT=55
 NO_COLOR=0
+MQTT_ENABLED=0
 
 [ -f "$SCRIPT_DIR/homelab-health.conf" ] && . "$SCRIPT_DIR/homelab-health.conf"
 [ -z "$COMPOSE_DIR" ] && COMPOSE_DIR="$REPO_ROOT"
+
+# CLI flags (override the conf).
+for arg in "$@"; do
+  case "$arg" in
+    --mqtt)      MQTT_ENABLED=1 ;;
+    --no-mqtt)   MQTT_ENABLED=0 ;;
+    -h|--help)
+      sed -n '2,13p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
+      exit 0 ;;
+  esac
+done
+
+# Load the Home Assistant MQTT publisher (functions are no-ops unless enabled).
+if [ -f "$SCRIPT_DIR/lib-mqtt.sh" ]; then
+  . "$SCRIPT_DIR/lib-mqtt.sh"
+  if [ "$MQTT_ENABLED" = "1" ] && ! command -v mosquitto_pub >/dev/null 2>&1; then
+    echo "  [mqtt] mosquitto_pub not found (apt install mosquitto-clients) — disabling MQTT" >&2
+    MQTT_ENABLED=0
+  fi
+fi
 
 # --------------------------------------------------------------------------
 # Output helpers
@@ -84,10 +105,11 @@ check_docker() {
     return
   fi
 
-  local name state health restarts
+  local name state health restarts res detail
   for name in $EXPECTED_CONTAINERS; do
     if ! docker inspect "$name" >/dev/null 2>&1; then
       status_line CRIT "$name: container does not exist"
+      publish_problem "docker_$name" "$name" "docker" "Homelab Docker" ON "container does not exist"
       continue
     fi
     state=$(docker inspect -f '{{.State.Status}}' "$name" 2>/dev/null)
@@ -95,15 +117,21 @@ check_docker() {
     restarts=$(docker inspect -f '{{.RestartCount}}' "$name" 2>/dev/null)
 
     if [ "$state" != "running" ]; then
-      status_line CRIT "$name: state=$state"
+      res=CRIT; detail="state=$state"
     elif [ "$health" = "unhealthy" ]; then
-      status_line CRIT "$name: running but healthcheck=unhealthy (restarts=$restarts)"
+      res=CRIT; detail="running but healthcheck=unhealthy (restarts=$restarts)"
     elif [ "$health" = "starting" ]; then
-      status_line WARN "$name: healthcheck still starting"
+      res=WARN; detail="healthcheck still starting"
     elif [ "${restarts:-0}" -gt 3 ] 2>/dev/null; then
-      status_line WARN "$name: running (health=$health) but restarted $restarts times"
+      res=WARN; detail="running (health=$health) but restarted $restarts times"
     else
-      status_line OK "$name: running (health=$health, restarts=$restarts)"
+      res=OK; detail="running (health=$health, restarts=$restarts)"
+    fi
+    status_line "$res" "$name: $detail"
+    if [ "$res" = OK ]; then
+      publish_problem "docker_$name" "$name" "docker" "Homelab Docker" OFF "$detail"
+    else
+      publish_problem "docker_$name" "$name" "docker" "Homelab Docker" ON "$detail"
     fi
   done
 
@@ -125,16 +153,17 @@ check_docker() {
 check_rogue_cpu() {
   header "$ROGUE_NAME — CPU / system temperatures"
 
+  local hottest=0 hottest_val=""
   if command -v sensors >/dev/null 2>&1; then
     # Pull every temperature reading lm-sensors exposes and grade the hottest.
-    local hottest=0 line label val st
+    local line label val st
     while IFS= read -r line; do
       label=$(printf '%s' "$line" | sed -E 's/:.*//' | xargs)
       val=$(printf '%s' "$line" | grep -oE '\+[0-9]+\.[0-9]+°C' | head -1 | grep -oE '[0-9]+\.[0-9]+')
       [ -z "$val" ] && continue
       st=$(temp_status "$val" "$CPU_WARN" "$CPU_CRIT")
       status_line "$st" "$(printf '%-20s %s°C' "$label" "$val")"
-      [ "${val%%.*}" -gt "$hottest" ] 2>/dev/null && hottest=${val%%.*}
+      if [ "${val%%.*}" -gt "$hottest" ] 2>/dev/null; then hottest=${val%%.*}; hottest_val=$val; fi
     done < <(sensors 2>/dev/null | grep -E '°C')
     [ "$hottest" = "0" ] && status_line INFO "sensors produced no temperature lines (run 'sudo sensors-detect' once)"
   elif [ -d /sys/class/thermal ] && ls /sys/class/thermal/thermal_zone*/temp >/dev/null 2>&1; then
@@ -147,10 +176,13 @@ check_rogue_cpu() {
       val=$(awk "BEGIN{printf \"%.1f\", $mC/1000}")
       st=$(temp_status "$val" "$CPU_WARN" "$CPU_CRIT")
       status_line "$st" "$(printf '%-20s %s°C' "$type" "$val")"
+      if [ "${val%%.*}" -gt "$hottest" ] 2>/dev/null; then hottest=${val%%.*}; hottest_val=$val; fi
     done
   else
     status_line INFO "no temperature source (install lm-sensors: apt install lm-sensors && sudo sensors-detect)"
   fi
+
+  [ -n "$hottest_val" ] && publish_temp "rogue_cpu" "$ROGUE_NAME CPU" "rogue" "$ROGUE_NAME" "$hottest_val"
 }
 
 # --------------------------------------------------------------------------
@@ -169,6 +201,7 @@ check_rogue_drives() {
         [ -z "$out" ] && continue
         st=$(temp_status "$out" "$DRIVE_WARN" "$DRIVE_CRIT")
         status_line "$st" "$(printf '%-12s %s°C' "$d" "$out")"
+        publish_temp "rogue_drive_$d" "$ROGUE_NAME $d" "rogue" "$ROGUE_NAME" "$out"
       done
     fi
     return
@@ -200,6 +233,7 @@ check_rogue_drives() {
     fi
     st=$(temp_status "$temp" "$DRIVE_WARN" "$DRIVE_CRIT")
     status_line "$st" "$(printf '%-12s %-24s %s°C' "$d" "$model" "$temp")"
+    publish_temp "rogue_drive_$d" "$ROGUE_NAME $(basename "$d")" "rogue" "$ROGUE_NAME" "$temp"
   done
 }
 
@@ -233,10 +267,12 @@ check_macmini() {
     case "$kind" in
       CPU)
         st=$(temp_status "$b" "$CPU_WARN" "$CPU_CRIT")
-        status_line "$st" "$(printf 'CPU (%-12s) %s°C' "$a" "$b")";;
+        status_line "$st" "$(printf 'CPU (%-12s) %s°C' "$a" "$b")"
+        publish_temp "macmini_cpu" "Mac Mini CPU" "macmini" "Mac Mini" "$b";;
       DRIVE)
         st=$(temp_status "$c" "$DRIVE_WARN" "$DRIVE_CRIT")
-        status_line "$st" "$(printf '%-12s %-24s %s°C' "$a" "$b" "$c")";;
+        status_line "$st" "$(printf '%-12s %-24s %s°C' "$a" "$b" "$c")"
+        publish_temp "macmini_drive_$a" "Mac Mini $(basename "$a")" "macmini" "Mac Mini" "$c";;
       NOTE)
         status_line INFO "$a";;
     esac
@@ -249,16 +285,21 @@ check_macmini() {
 printf '%s%s Homelab health check — %s %s%s\n' \
   "$C_BOLD" "================" "$(date '+%Y-%m-%d %H:%M:%S')" "================" "$C_RESET"
 
+[ "$MQTT_ENABLED" = "1" ] && mqtt_online
+
 check_docker
 check_rogue_cpu
 check_rogue_drives
 check_macmini
+
+publish_status "$OK_COUNT" "$WARN_COUNT" "$CRIT_COUNT"
 
 header "Summary"
 printf '  %sOK: %d%s   %sWARN: %d%s   %sCRIT: %d%s\n' \
   "$C_GREEN" "$OK_COUNT" "$C_RESET" \
   "$C_YELLOW" "$WARN_COUNT" "$C_RESET" \
   "$C_RED" "$CRIT_COUNT" "$C_RESET"
+[ "$MQTT_ENABLED" = "1" ] && printf '  %s[mqtt]%s published to %s:%s\n' "$C_DIM" "$C_RESET" "$MQTT_HOST" "$MQTT_PORT"
 
 if   [ "$CRIT_COUNT" -gt 0 ]; then exit 2
 elif [ "$WARN_COUNT" -gt 0 ]; then exit 1

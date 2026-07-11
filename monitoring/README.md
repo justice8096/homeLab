@@ -7,6 +7,7 @@ temperatures for **Rogue** (the Linux Docker host) and the **Mac Mini**.
 monitoring/
 ├── homelab-health.sh          # run this ON Rogue — the orchestrator
 ├── temps-macos.sh             # temperature reporter for the Mac Mini
+├── lib-mqtt.sh                # Home Assistant MQTT-discovery publisher
 ├── homelab-health.conf.example# copy → homelab-health.conf and edit
 └── README.md
 ```
@@ -94,12 +95,73 @@ Defaults (Celsius), overridable in the conf file:
 Spinning disks should idle well under 45 °C; NVMe can run hotter but 55 °C
 sustained is worth a look.
 
+## Home Assistant (MQTT discovery)
+
+The same run can push everything into Home Assistant. Rogue publishes to your
+MQTT broker and HA **auto-creates** the entities — no YAML on the HA side.
+
+Entities created (grouped under HA devices **Rogue**, **Mac Mini**, and
+**Homelab Docker**):
+
+| Entity | Type | Notes |
+|--------|------|-------|
+| `sensor.homelab_rogue_cpu` | temperature (°C) | hottest CPU/system reading on Rogue |
+| `sensor.homelab_rogue_drive_*` | temperature (°C) | one per attached drive |
+| `sensor.homelab_macmini_cpu` | temperature (°C) | Mac Mini CPU |
+| `sensor.homelab_macmini_drive_*` | temperature (°C) | one per Mac Mini drive |
+| `binary_sensor.homelab_docker_*` | problem (on/off) | one per container; `on` = not running / unhealthy |
+| `sensor.homelab_status` | OK / WARN / CRIT | rollup, with ok/warn/crit counts as attributes |
+
+Temperature entities carry `device_class: temperature` and
+`state_class: measurement`, so HA gives you history graphs for free, and
+`expire_after` marks an entity **unavailable** if the publisher stops.
+
+### Setup
+
+1. Install the broker client on Rogue and make sure HA talks to the same
+   broker (the **Mosquitto** add-on is the usual choice):
+
+   ```bash
+   sudo apt install mosquitto-clients
+   ```
+
+2. Fill in the MQTT block in `homelab-health.conf`:
+
+   ```bash
+   MQTT_ENABLED=1
+   MQTT_HOST="homeassistant.local"   # or your broker's address
+   MQTT_USER="homelab"               # broker credentials (blank = anonymous)
+   MQTT_PASS="••••••"
+   MQTT_EXPIRE=1800                  # a bit above your cron interval
+   ```
+
+3. Run it (or let cron run it). `--mqtt` / `--no-mqtt` override the conf
+   per-run:
+
+   ```bash
+   ./monitoring/homelab-health.sh --mqtt
+   ```
+
+Entities appear automatically under **Settings → Devices & Services → MQTT**.
+From there, wire an automation off `sensor.homelab_status` (e.g. *is `CRIT` →
+notify*) or off any individual temperature sensor. Discovery and state messages
+are published **retained**, so HA repopulates them after a restart.
+
+> If `mosquitto_pub` isn't installed the script prints a notice and continues
+> with normal console output — MQTT never blocks the health check.
+
 ## Scheduling
 
 Run every 15 minutes and log, alerting only on non-zero exit:
 
 ```cron
 */15 * * * * /path/to/homeLab/monitoring/homelab-health.sh > /var/log/homelab-health.log 2>&1 || echo "homelab health degraded" | mail -s "Homelab alert" you@example.com
+```
+
+With MQTT enabled, the same schedule keeps Home Assistant fed:
+
+```cron
+*/15 * * * * /path/to/homeLab/monitoring/homelab-health.sh --mqtt >> /var/log/homelab-health.log 2>&1
 ```
 
 Set `NO_COLOR=1` in the conf (or environment) for clean log output.
