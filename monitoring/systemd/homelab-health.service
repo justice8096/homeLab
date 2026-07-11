@@ -1,0 +1,11 @@
+[Unit]
+Description=Homelab health check + Home Assistant MQTT publish
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# Adjust the path if the repo lives elsewhere on Rogue.
+ExecStart=/opt/homeLab/monitoring/homelab-health.sh --mqtt
+# Uncomment if smartctl/hddtemp need root and you don't use a sudoers rule:
+# User=root

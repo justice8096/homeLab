@@ -5,12 +5,42 @@ temperatures for **Rogue** (the Linux Docker host) and the **Mac Mini**.
 
 ```
 monitoring/
+├── install.sh                 # one-command setup on Rogue (deps, conf, schedule)
+├── doctor.sh                  # readiness self-check (deps, broker, drives, SSH)
 ├── homelab-health.sh          # run this ON Rogue — the orchestrator
 ├── temps-macos.sh             # temperature reporter for the Mac Mini
 ├── lib-mqtt.sh                # Home Assistant MQTT-discovery publisher
 ├── homelab-health.conf.example# copy → homelab-health.conf and edit
+├── systemd/                   # optional service + timer units
 └── README.md
 ```
+
+## One-command setup (on Rogue)
+
+```bash
+cd /path/to/homeLab
+sudo ./monitoring/install.sh \
+     --broker 192.168.1.10 --broker-user homelab --broker-pass 's3cret' \
+     --macmini admin@macmini.local
+```
+
+`install.sh` installs the dependencies, initialises lm-sensors, writes
+`homelab-health.conf` (chmod 600), installs a cron schedule, and runs the
+`doctor.sh` self-check. It's re-runnable — config keys update in place. Flags:
+`--schedule cron|systemd|none` (default `cron`), `--interval <min>` (default
+15), `--no-install` to skip packages, `-y` for non-interactive.
+
+Then verify anytime:
+
+```bash
+./monitoring/doctor.sh    # checks deps, passwordless smartctl, broker round-trip, Mac SSH
+```
+
+The one step the installer can't do for you is in the Home Assistant UI —
+**Settings → Devices & Services → Add Integration → MQTT**, pointed at the same
+broker. After that the entities appear automatically.
+
+Prefer to do it by hand? The manual steps are below.
 
 ## What it checks
 
