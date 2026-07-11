@@ -141,8 +141,10 @@ check_docker() {
     code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 "$HAPROXY_STATS_URL" 2>/dev/null)
     if [ "$code" = "200" ]; then
       status_line OK "haproxy stats reachable ($HAPROXY_STATS_URL -> 200)"
+      publish_connectivity "haproxy_online" "haproxy reachable" "docker" "Homelab Docker" ON "$HAPROXY_STATS_URL -> 200"
     else
       status_line WARN "haproxy stats probe returned '$code' ($HAPROXY_STATS_URL)"
+      publish_connectivity "haproxy_online" "haproxy reachable" "docker" "Homelab Docker" OFF "$HAPROXY_STATS_URL -> ${code:-no response}"
     fi
   fi
 }
@@ -163,6 +165,7 @@ check_rogue_cpu() {
       [ -z "$val" ] && continue
       st=$(temp_status "$val" "$CPU_WARN" "$CPU_CRIT")
       status_line "$st" "$(printf '%-20s %s°C' "$label" "$val")"
+      publish_temp "rogue_cpu_$label" "$ROGUE_NAME $label" "rogue" "$ROGUE_NAME" "$val"
       if [ "${val%%.*}" -gt "$hottest" ] 2>/dev/null; then hottest=${val%%.*}; hottest_val=$val; fi
     done < <(sensors 2>/dev/null | grep -E '°C')
     [ "$hottest" = "0" ] && status_line INFO "sensors produced no temperature lines (run 'sudo sensors-detect' once)"
@@ -176,39 +179,62 @@ check_rogue_cpu() {
       val=$(awk "BEGIN{printf \"%.1f\", $mC/1000}")
       st=$(temp_status "$val" "$CPU_WARN" "$CPU_CRIT")
       status_line "$st" "$(printf '%-20s %s°C' "$type" "$val")"
+      publish_temp "rogue_cpu_$type" "$ROGUE_NAME $type" "rogue" "$ROGUE_NAME" "$val"
       if [ "${val%%.*}" -gt "$hottest" ] 2>/dev/null; then hottest=${val%%.*}; hottest_val=$val; fi
     done
   else
     status_line INFO "no temperature source (install lm-sensors: apt install lm-sensors && sudo sensors-detect)"
   fi
 
-  [ -n "$hottest_val" ] && publish_temp "rogue_cpu" "$ROGUE_NAME CPU" "rogue" "$ROGUE_NAME" "$hottest_val"
+  [ -n "$hottest_val" ] && publish_temp "rogue_cpu" "$ROGUE_NAME CPU (hottest)" "rogue" "$ROGUE_NAME" "$hottest_val"
 }
 
 # --------------------------------------------------------------------------
-# 3. Drive temperatures (local Linux, via smartctl)
+# 3. Drive temperatures + SMART health (local Linux, via smartctl)
 # --------------------------------------------------------------------------
+# Read a drive, trying device-type passthroughs so external/USB enclosures
+# report too. Sets SM_MODEL, SM_TEMP, SM_HEALTH (any may be empty/"?").
+smart_read() {
+  local d="$1" dt info
+  SM_MODEL="?"; SM_TEMP=""; SM_HEALTH=""
+  for dt in "" "-d sat" "-d auto"; do
+    info=$(sudo -n smartctl -i $dt "$d" 2>/dev/null)
+    [ -z "$info" ] && continue
+    if [ "$SM_MODEL" = "?" ]; then
+      SM_MODEL=$(printf '%s' "$info" | awk -F: '/Device Model|Model Number|Product/ {gsub(/^[ \t]+/,"",$2); print $2; exit}')
+      [ -z "$SM_MODEL" ] && SM_MODEL="?"
+    fi
+    [ -z "$SM_HEALTH" ] && SM_HEALTH=$(sudo -n smartctl -H $dt "$d" 2>/dev/null | \
+      awk -F: '/overall-health|SMART Health Status/ {gsub(/^[ \t]+/,"",$2); print $2; exit}')
+    SM_TEMP=$(sudo -n smartctl -A $dt "$d" 2>/dev/null | awk '
+      /Temperature_Celsius/ {print $10; exit}
+      /Current Drive Temperature/ {print $4; exit}
+      /^Temperature:/ {print $2; exit}')
+    [ -n "$SM_TEMP" ] && break   # this passthrough works — stop probing
+  done
+}
+
 check_rogue_drives() {
-  header "$ROGUE_NAME — attached hard drives"
+  header "$ROGUE_NAME — attached hard drives (temp + SMART health)"
 
   if ! command -v smartctl >/dev/null 2>&1; then
     status_line INFO "smartctl not found (apt install smartmontools) — trying hddtemp"
     if command -v hddtemp >/dev/null 2>&1; then
-      local d out temp st
+      local d out st
       for d in /dev/sd?; do
         [ -e "$d" ] || continue
         out=$(sudo -n hddtemp -n "$d" 2>/dev/null)
         [ -z "$out" ] && continue
         st=$(temp_status "$out" "$DRIVE_WARN" "$DRIVE_CRIT")
         status_line "$st" "$(printf '%-12s %s°C' "$d" "$out")"
-        publish_temp "rogue_drive_$d" "$ROGUE_NAME $d" "rogue" "$ROGUE_NAME" "$out"
+        publish_temp "rogue_drive_$(basename "$d")" "$ROGUE_NAME $(basename "$d")" "rogue" "$ROGUE_NAME" "$out"
       done
     fi
     return
   fi
 
   # Enumerate physical block devices (disks, not partitions/loop/rom).
-  local disks d model temp st
+  local disks d base st
   if command -v lsblk >/dev/null 2>&1; then
     disks=$(lsblk -dno NAME,TYPE 2>/dev/null | awk '$2=="disk"{print "/dev/"$1}')
   else
@@ -221,19 +247,29 @@ check_rogue_drives() {
   fi
 
   for d in $disks; do
-    model=$(sudo -n smartctl -i "$d" 2>/dev/null | awk -F: '/Device Model|Model Number|Product/ {gsub(/^[ \t]+/,"",$2); print $2; exit}')
-    [ -z "$model" ] && model="?"
-    temp=$(sudo -n smartctl -A "$d" 2>/dev/null | awk '
-      /Temperature_Celsius/ {print $10; exit}
-      /Current Drive Temperature/ {print $4; exit}
-      /^Temperature:/ {print $2; exit}')
-    if [ -z "$temp" ]; then
-      status_line INFO "$(printf '%-12s %-24s temp not reported (USB bridge? needs -d sat)' "$d" "$model")"
-      continue
+    base=$(basename "$d")
+    smart_read "$d"
+
+    # Temperature (internal or external/USB via the -d passthrough above).
+    if [ -n "$SM_TEMP" ]; then
+      st=$(temp_status "$SM_TEMP" "$DRIVE_WARN" "$DRIVE_CRIT")
+      status_line "$st" "$(printf '%-12s %-24s %s°C' "$d" "$SM_MODEL" "$SM_TEMP")"
+      publish_temp "rogue_drive_$base" "$ROGUE_NAME $base" "rogue" "$ROGUE_NAME" "$SM_TEMP"
+    else
+      status_line INFO "$(printf '%-12s %-24s temp not reported (enclosure without SMART passthrough)' "$d" "$SM_MODEL")"
     fi
-    st=$(temp_status "$temp" "$DRIVE_WARN" "$DRIVE_CRIT")
-    status_line "$st" "$(printf '%-12s %-24s %s°C' "$d" "$model" "$temp")"
-    publish_temp "rogue_drive_$d" "$ROGUE_NAME $(basename "$d")" "rogue" "$ROGUE_NAME" "$temp"
+
+    # SMART overall-health (PASSED / OK = good; anything else = failing).
+    if [ -n "$SM_HEALTH" ]; then
+      case "$SM_HEALTH" in
+        PASSED|OK)
+          status_line OK "$(printf '%-12s SMART health: %s' "$d" "$SM_HEALTH")"
+          publish_problem "rogue_drive_${base}_health" "$ROGUE_NAME $base SMART" "rogue" "$ROGUE_NAME" OFF "$SM_HEALTH";;
+        *)
+          status_line CRIT "$(printf '%-12s SMART health: %s' "$d" "$SM_HEALTH")"
+          publish_problem "rogue_drive_${base}_health" "$ROGUE_NAME $base SMART" "rogue" "$ROGUE_NAME" ON "$SM_HEALTH";;
+      esac
+    fi
   done
 }
 
@@ -259,10 +295,12 @@ check_macmini() {
 
   if [ -z "$out" ]; then
     status_line WARN "no response from $MACMINI_SSH (check SSH key auth / host reachable)"
+    publish_connectivity "macmini_online" "Mac Mini online" "macmini" "Mac Mini" OFF "no SSH response from $MACMINI_SSH"
     return
   fi
+  publish_connectivity "macmini_online" "Mac Mini online" "macmini" "Mac Mini" ON "responded via $MACMINI_SSH"
 
-  local kind a b c st
+  local kind a b c st base
   while IFS='|' read -r kind a b c; do
     case "$kind" in
       CPU)
@@ -270,18 +308,33 @@ check_macmini() {
         status_line "$st" "$(printf 'CPU (%-12s) %s°C' "$a" "$b")"
         publish_temp "macmini_cpu" "Mac Mini CPU" "macmini" "Mac Mini" "$b";;
       DRIVE)
+        base=$(basename "$a")
         st=$(temp_status "$c" "$DRIVE_WARN" "$DRIVE_CRIT")
         status_line "$st" "$(printf '%-12s %-24s %s°C' "$a" "$b" "$c")"
-        publish_temp "macmini_drive_$a" "Mac Mini $(basename "$a")" "macmini" "Mac Mini" "$c";;
+        publish_temp "macmini_drive_$base" "Mac Mini $base" "macmini" "Mac Mini" "$c";;
+      HEALTH)
+        base=$(basename "$a")
+        case "$b" in
+          PASSED|OK)
+            status_line OK "$(printf '%-12s SMART health: %s' "$a" "$b")"
+            publish_problem "macmini_drive_${base}_health" "Mac Mini $base SMART" "macmini" "Mac Mini" OFF "$b";;
+          *)
+            status_line CRIT "$(printf '%-12s SMART health: %s' "$a" "$b")"
+            publish_problem "macmini_drive_${base}_health" "Mac Mini $base SMART" "macmini" "Mac Mini" ON "$b";;
+        esac;;
       NOTE)
         status_line INFO "$a";;
     esac
   done <<< "$out"
+
+  publish_timestamp "macmini_updated" "Mac Mini last updated" "macmini" "Mac Mini" "$RUN_ISO"
 }
 
 # --------------------------------------------------------------------------
 # Main
 # --------------------------------------------------------------------------
+RUN_ISO=$(date -u '+%Y-%m-%dT%H:%M:%S+00:00')
+
 printf '%s%s Homelab health check — %s %s%s\n' \
   "$C_BOLD" "================" "$(date '+%Y-%m-%d %H:%M:%S')" "================" "$C_RESET"
 
@@ -292,6 +345,7 @@ check_rogue_cpu
 check_rogue_drives
 check_macmini
 
+publish_timestamp "rogue_updated" "$ROGUE_NAME last updated" "rogue" "$ROGUE_NAME" "$RUN_ISO"
 publish_status "$OK_COUNT" "$WARN_COUNT" "$CRIT_COUNT"
 
 header "Summary"

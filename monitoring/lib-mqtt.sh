@@ -81,6 +81,37 @@ publish_problem() {
   _mqtt_pub "$state_topic" "$onoff" 1
 }
 
+# publish_connectivity <object_id> <friendly> <device_id> <device_name> <ON|OFF> [detail]
+# ON = connected (HA connectivity device class shows on=connected).
+publish_connectivity() {
+  [ "$MQTT_ENABLED" = "1" ] || return 0
+  local oid; oid=$(_mqtt_slug "$1")
+  local name="$2" dev; dev=$(_mqtt_slug "$3")
+  local devname="$4" onoff="$5" detail="${6:-}"
+  local state_topic="$MQTT_BASE/$oid/state"
+  local attr_topic="$MQTT_BASE/$oid/attr"
+  local expire=""; [ "$MQTT_EXPIRE" -gt 0 ] 2>/dev/null && expire=",\"expire_after\":$MQTT_EXPIRE"
+  local cfg
+  cfg="{\"name\":\"$(_mqtt_json "$name")\",\"unique_id\":\"${MQTT_NODE}_${oid}\",\"object_id\":\"${MQTT_NODE}_${oid}\",\"state_topic\":\"$state_topic\",\"availability_topic\":\"$MQTT_AVAIL_TOPIC\",\"json_attributes_topic\":\"$attr_topic\",\"device_class\":\"connectivity\",\"payload_on\":\"ON\",\"payload_off\":\"OFF\"${expire},\"device\":{\"identifiers\":[\"${MQTT_NODE}_${dev}\"],\"name\":\"$(_mqtt_json "$devname")\",\"manufacturer\":\"homelab-health\"}}"
+  _mqtt_pub "$MQTT_DISCOVERY/binary_sensor/$MQTT_NODE/$oid/config" "$cfg" 1
+  _mqtt_pub "$attr_topic" "{\"detail\":\"$(_mqtt_json "$detail")\"}" 1
+  _mqtt_pub "$state_topic" "$onoff" 1
+}
+
+# publish_timestamp <object_id> <friendly> <device_id> <device_name> <iso8601>
+# Freshness marker — no expire_after so the last-run time persists in HA.
+publish_timestamp() {
+  [ "$MQTT_ENABLED" = "1" ] || return 0
+  local oid; oid=$(_mqtt_slug "$1")
+  local name="$2" dev; dev=$(_mqtt_slug "$3")
+  local devname="$4" iso="$5"
+  local state_topic="$MQTT_BASE/$oid/state"
+  local cfg
+  cfg="{\"name\":\"$(_mqtt_json "$name")\",\"unique_id\":\"${MQTT_NODE}_${oid}\",\"object_id\":\"${MQTT_NODE}_${oid}\",\"state_topic\":\"$state_topic\",\"availability_topic\":\"$MQTT_AVAIL_TOPIC\",\"device_class\":\"timestamp\",\"icon\":\"mdi:clock-check\",\"device\":{\"identifiers\":[\"${MQTT_NODE}_${dev}\"],\"name\":\"$(_mqtt_json "$devname")\",\"manufacturer\":\"homelab-health\"}}"
+  _mqtt_pub "$MQTT_DISCOVERY/sensor/$MQTT_NODE/$oid/config" "$cfg" 1
+  _mqtt_pub "$state_topic" "$iso" 1
+}
+
 # publish_status <ok> <warn> <crit>  — overall rollup sensor (value OK/WARN/CRIT)
 publish_status() {
   [ "$MQTT_ENABLED" = "1" ] || return 0

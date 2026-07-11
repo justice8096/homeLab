@@ -106,10 +106,16 @@ Entities created (grouped under HA devices **Rogue**, **Mac Mini**, and
 | Entity | Type | Notes |
 |--------|------|-------|
 | `sensor.homelab_rogue_cpu` | temperature (°C) | hottest CPU/system reading on Rogue |
-| `sensor.homelab_rogue_drive_*` | temperature (°C) | one per attached drive |
+| `sensor.homelab_rogue_cpu_*` | temperature (°C) | per-core / per-zone reading (Core 0, Package, …) |
+| `sensor.homelab_rogue_drive_*` | temperature (°C) | one per attached drive, incl. external/USB (via `-d sat`) |
+| `binary_sensor.homelab_rogue_drive_*_health` | problem (on/off) | SMART overall-health per drive; `on` = failing |
 | `sensor.homelab_macmini_cpu` | temperature (°C) | Mac Mini CPU |
-| `sensor.homelab_macmini_drive_*` | temperature (°C) | one per Mac Mini drive |
+| `sensor.homelab_macmini_drive_*` | temperature (°C) | one per Mac Mini drive, incl. external |
+| `binary_sensor.homelab_macmini_drive_*_health` | problem (on/off) | SMART health per Mac drive |
+| `binary_sensor.homelab_macmini_online` | connectivity | `on` = Mac answered over SSH on the last run |
 | `binary_sensor.homelab_docker_*` | problem (on/off) | one per container; `on` = not running / unhealthy |
+| `binary_sensor.homelab_haproxy_online` | connectivity | `on` = haproxy stats page answered 200 |
+| `sensor.homelab_rogue_updated` / `sensor.homelab_macmini_updated` | timestamp | last successful run per host (alert if stale) |
 | `sensor.homelab_status` | OK / WARN / CRIT | rollup, with ok/warn/crit counts as attributes |
 
 Temperature entities carry `device_class: temperature` and

@@ -7,6 +7,7 @@
 # Output format (one record per line):
 #   CPU|<label>|<celsius>
 #   DRIVE|<device>|<model>|<celsius>
+#   HEALTH|<device>|<smart status>   (PASSED/OK = good)
 #   NOTE|<free text>            (informational, non-fatal)
 #
 # Temperature sources are tried in order of reliability/availability:
@@ -64,20 +65,28 @@ drive_temps() {
   disks=$(diskutil list physical 2>/dev/null | grep -oE '/dev/disk[0-9]+' | sort -u)
   [ -z "$disks" ] && disks=$(ls /dev/disk[0-9] 2>/dev/null)
 
-  local d model temp
+  local d dt model temp health
   for d in $disks; do
-    model=$(smartctl -i "$d" 2>/dev/null | awk -F: '/Model|Product|Device Model/ {gsub(/^[ \t]+/,"",$2); print $2; exit}')
+    model=""; temp=""; health=""
+    # Try device-type passthroughs so external/USB enclosures report too.
+    for dt in "" "-d sat" "-d auto"; do
+      smartctl -i $dt "$d" >/dev/null 2>&1 || continue
+      [ -z "$model" ] && model=$(smartctl -i $dt "$d" 2>/dev/null | awk -F: '/Model Number|Device Model|Product/ {gsub(/^[ \t]+/,"",$2); print $2; exit}')
+      [ -z "$health" ] && health=$(smartctl -H $dt "$d" 2>/dev/null | awk -F: '/overall-health|SMART Health Status/ {gsub(/^[ \t]+/,"",$2); print $2; exit}')
+      temp=$(smartctl -A $dt "$d" 2>/dev/null | awk '
+        /Temperature_Celsius/ {print $10; exit}
+        /Current Drive Temperature/ {print $4; exit}
+        /^Temperature:/ {print $2; exit}')
+      [ -n "$temp" ] && break
+    done
     [ -z "$model" ] && model="unknown"
-    # Try the SMART temperature attribute (194) then the NVMe/SCSI style line.
-    temp=$(smartctl -A "$d" 2>/dev/null | awk '
-      /Temperature_Celsius/ {print $10; found=1; exit}
-      /Current Drive Temperature/ {print $4; found=1; exit}
-      /^Temperature:/ {print $2; found=1; exit}')
+
     if [ -n "$temp" ]; then
       emit "DRIVE|$d|$model|$temp"
     else
-      emit "NOTE|$d ($model): SMART temperature not reported (may be a USB bridge without SAT passthrough)"
+      emit "NOTE|$d ($model): SMART temperature not reported (enclosure without SAT passthrough)"
     fi
+    [ -n "$health" ] && emit "HEALTH|$d|$health"
   done
 }
 
