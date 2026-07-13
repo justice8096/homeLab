@@ -42,7 +42,7 @@ services:
             - '5678'
         ports:
            - '8002:8080'
-        working_dir: ${SERVICE_R00T:-/mnt/sdc4}/docker/n8n
+        working_dir: ${SERVICE_ROOT:-/mnt/sdc4}/docker/n8n
         volumes: 
            - '${SERVICE_ROOT:-/mnt/sdc4}/docker/n8n/n8nData:/home/node/.n8n'
         networks: 
