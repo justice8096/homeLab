@@ -41,7 +41,7 @@ services:
         expose:
             - '5678'
         ports:
-           - '8002:8080'
+           - '8002:5678'
         working_dir: ${SERVICE_ROOT:-/mnt/sdc4}/docker/n8n
         volumes: 
            - '${SERVICE_ROOT:-/mnt/sdc4}/docker/n8n/n8nData:/home/node/.n8n'
@@ -58,7 +58,7 @@ services:
         expose:
             - '9200'
         ports:
-            - '8004:9300'
+            - '8004:9200'
         networks: 
             - backbone
     obsidian:
