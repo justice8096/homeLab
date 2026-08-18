@@ -26,3 +26,6 @@ obsidian/obsidianVault/*
 /obsidian/obsidianConfig/.pki
 /.docker-compose.yml.swo
 /volumes/
+
+# local monitoring config (may contain broker credentials)
+monitoring/homelab-health.conf

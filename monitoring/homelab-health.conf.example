@@ -1,0 +1,67 @@
+# homelab-health configuration
+# Copy to homelab-health.conf and edit for your environment.
+# All values are optional; the defaults shown match this repo's docker-compose stack.
+
+# ---------------------------------------------------------------------------
+# Docker
+# ---------------------------------------------------------------------------
+# Path to the compose project (directory containing docker-compose.yml).
+# Leave blank to use the repo root relative to this script.
+COMPOSE_DIR=""
+
+# Container names expected to be running. Space-separated.
+# Defaults to the services defined in docker-compose.yml.
+EXPECTED_CONTAINERS="haproxy mongo n8n elasticSearch obsidian calibre webdav"
+
+# haproxy stats endpoint used for an end-to-end HTTP liveness probe.
+HAPROXY_STATS_URL="http://localhost:8404/"
+
+# ---------------------------------------------------------------------------
+# Hosts to collect temperatures from
+# ---------------------------------------------------------------------------
+# "Rogue" is assumed to be the local Linux Docker host (this machine).
+ROGUE_NAME="Rogue"
+
+# Mac Mini is collected over SSH. Set to an ssh target (user@host) that can run
+# temps-macos.sh non-interactively (key-based auth recommended). Leave blank to
+# skip the Mac Mini section.
+MACMINI_SSH="admin@macmini.local"
+
+# Absolute path to temps-macos.sh ON the Mac Mini. If the file is not present
+# there, the orchestrator will stream it over the SSH connection instead.
+MACMINI_SCRIPT_PATH="~/homelab/monitoring/temps-macos.sh"
+
+# ---------------------------------------------------------------------------
+# Temperature thresholds (Celsius)
+# ---------------------------------------------------------------------------
+CPU_WARN=70
+CPU_CRIT=85
+
+# Spinning disks run cooler; SSD/NVMe tolerate more. These are conservative.
+DRIVE_WARN=45
+DRIVE_CRIT=55
+
+# ---------------------------------------------------------------------------
+# Home Assistant (MQTT discovery)
+# ---------------------------------------------------------------------------
+# Publish temps + container health to Home Assistant via MQTT auto-discovery.
+# Requires mosquitto-clients on Rogue (apt install mosquitto-clients) and an
+# MQTT broker HA is connected to (e.g. the Mosquitto add-on).
+# Enable here, or per-run with the --mqtt flag.
+MQTT_ENABLED=0
+MQTT_HOST="homeassistant.local"   # broker address
+MQTT_PORT=1883
+MQTT_USER=""                       # broker username (blank = anonymous)
+MQTT_PASS=""                       # broker password
+MQTT_BASE="homelab"                # state-topic root
+MQTT_DISCOVERY="homeassistant"     # HA discovery prefix (default: homeassistant)
+MQTT_NODE="homelab"                # entity/unique_id namespace
+# Seconds without an update before HA marks an entity unavailable.
+# Set a bit above your cron interval; 0 disables the expiry.
+MQTT_EXPIRE=1800
+
+# ---------------------------------------------------------------------------
+# Behaviour
+# ---------------------------------------------------------------------------
+# Set to 1 to disable ANSI colour (useful for cron / log capture).
+NO_COLOR=0
