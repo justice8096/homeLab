@@ -1,0 +1,26 @@
+# Scheduled homelab health check — runs on the self-hosted runner ON Rogue.
+# The 15-min cron on Rogue keeps Home Assistant fed; this one gives a visible
+# pass/fail history in GitHub and can be triggered on demand.
+# NOTE: the schedule only fires once this file is on the default branch.
+name: Health check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 */6 * * *'   # every 6 hours
+
+jobs:
+  health:
+    runs-on: [self-hosted, rogue]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run homelab-health.sh
+        run: |
+          HEALTH="${HOMELAB_DIR:-$GITHUB_WORKSPACE}/monitoring/homelab-health.sh"
+          NO_COLOR=1 "$HEALTH"; rc=$?
+          if [ "$rc" = "1" ]; then
+            echo "::warning::health check finished with warnings"
+            exit 0
+          fi
+          exit "$rc"
