@@ -1,0 +1,9 @@
+# /etc/sudoers.d/homelab-maintenance  (install with: visudo -c, then mode 440)
+#
+# Passwordless commands the maintenance workflows and health check need on
+# Rogue. "runner" is replaced with the actual runner user by setup-runner.sh;
+# adjust yourself if installing by hand.
+#
+# Note: apt-get here permits package installs/removals too — acceptable for a
+# homelab runner user; tighten to specific subcommands if that bothers you.
+runner ALL=(root) NOPASSWD: /usr/bin/apt-get, /usr/sbin/smartctl, /usr/sbin/hddtemp

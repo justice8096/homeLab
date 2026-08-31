@@ -1,0 +1,59 @@
+# Maintenance for the homelab — runs on the self-hosted runner ON Rogue.
+# Trigger from the Actions tab (Run workflow) and pick a target.
+name: Maintenance
+
+run-name: "Maintenance: ${{ inputs.target }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: What to update
+        type: choice
+        default: all
+        options: [all, rogue, macmini]
+      mac_os_updates:
+        description: Also install macOS software updates (restart is left manual)
+        type: boolean
+        default: false
+
+jobs:
+  rogue:
+    name: Update Rogue (apt + containers)
+    if: ${{ inputs.target == 'all' || inputs.target == 'rogue' }}
+    runs-on: [self-hosted, rogue]
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run update-rogue.sh
+        run: NO_COLOR=1 ./maintenance/update-rogue.sh
+
+  macmini:
+    name: Update Mac Mini (over SSH)
+    if: ${{ inputs.target == 'all' || inputs.target == 'macmini' }}
+    runs-on: [self-hosted, rogue]
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run update-macmini.sh
+        run: NO_COLOR=1 ./maintenance/update-macmini.sh ${{ inputs.mac_os_updates && '--os-updates' || '' }}
+
+  health:
+    name: Post-update health check
+    needs: [rogue, macmini]
+    if: ${{ !cancelled() }}
+    runs-on: [self-hosted, rogue]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run homelab-health.sh
+        run: |
+          # Prefer the live clone (it holds homelab-health.conf with the
+          # MQTT + Mac Mini settings); fall back to this checkout.
+          HEALTH="${HOMELAB_DIR:-$GITHUB_WORKSPACE}/monitoring/homelab-health.sh"
+          NO_COLOR=1 "$HEALTH"; rc=$?
+          if [ "$rc" = "1" ]; then
+            echo "::warning::health check finished with warnings"
+            exit 0
+          fi
+          exit "$rc"
